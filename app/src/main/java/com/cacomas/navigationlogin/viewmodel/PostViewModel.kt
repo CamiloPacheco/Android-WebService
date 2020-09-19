@@ -1,33 +1,31 @@
 package com.cacomas.navigationlogin.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.MutableLiveData
+import com.cacomas.navigationlogin.data.Course
 import kotlinx.coroutines.launch
 import com.cacomas.navigationlogin.repository.PostRepository
-import com.cacomas.navigationlogin.repository.api.Post
+
 class PostViewModel : ViewModel() {
     private val repository = PostRepository()
-    val posts = mutableListOf<Post>()
-    val postsLiveData = MutableLiveData<List<Post>>()
+    val posts = mutableListOf<Course>()
+    val postsLiveData = MutableLiveData<List<Course>>()
 
     init {
-        getPost()
-    }
-    private fun getPosts() {
-        viewModelScope.launch {
-            posts.addAll(repository.getPosts())
-            postsLiveData.postValue(posts)
-        }
+        //getPost()
     }
 
-
-    fun getPost() {
-        viewModelScope.launch {
-            val post = repository.getPost(posts.size+1)
-            posts.add(post)
-            postsLiveData.postValue(posts)
-        }
+    fun getCourses(user: String, token: String)  {
+        Log.d("MyOut", "CourseViewModel addCourses with token  <" + token+">")
+        repository.getCourses(user, token)
     }
-
+    fun getCoursesData()  {
+        val post = repository.getCoursesData()
+        postsLiveData.postValue(post)
+    }
+    fun addCourses(user: String, token: String)  {
+        repository.addCourses(user, token)
+    }
 }

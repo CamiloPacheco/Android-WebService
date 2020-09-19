@@ -11,7 +11,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cacomas.navigationlogin.R
-import com.cacomas.navigationlogin.repository.api.Post
 import com.cacomas.navigationlogin.viewmodel.LoginViewModel
 import com.cacomas.navigationlogin.viewmodel.PostViewModel
 import kotlinx.android.synthetic.main.fragment_home.view.*
@@ -27,7 +26,7 @@ import kotlinx.android.synthetic.main.fragment_home.view.*
 class HomeFragment : Fragment() {
     val postViewModel: PostViewModel by activityViewModels()
     private val adapter = PostsAdapter(ArrayList())
-    lateinit var posts : List<Post>
+
 
     val loginViewModel: LoginViewModel by activityViewModels()
     override fun onCreateView(
@@ -43,6 +42,9 @@ class HomeFragment : Fragment() {
 
         requireView().posts_recycler.adapter = adapter
         requireView().posts_recycler.layoutManager = LinearLayoutManager(requireContext())
+        var token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjE0MiwiaWF0IjoxNjAwNDc3NzQxLCJleHAiOjE2MDA0Nzc4NjF9.556fOVp0xXFofYp7gEIbkCIx2pcmUml2PUIUacmWkaM"
+        postViewModel.getCourses("elprofesor",token);
+        postViewModel.getCoursesData()
 
         postViewModel.postsLiveData.observe(getViewLifecycleOwner(), Observer {
             adapter.posts.clear()
@@ -60,7 +62,8 @@ class HomeFragment : Fragment() {
             loginViewModel.setLogged(false)
         }
         view.findViewById<Button>(R.id.Addbutton).setOnClickListener {
-            postViewModel.getPost()
+            postViewModel.addCourses("elprofesor",token);
+            postViewModel.getCoursesData()
         }
     }
 }

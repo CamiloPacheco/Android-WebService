@@ -5,10 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.cacomas.navigationlogin.R
-import com.cacomas.navigationlogin.repository.api.Post
+import com.cacomas.navigationlogin.data.Course
 import kotlinx.android.synthetic.main.list_item_post.view.*
 
-class PostsAdapter(val posts: ArrayList<Post>): RecyclerView.Adapter<PostsAdapter.ViewHolder>() {
+class PostsAdapter(val posts: ArrayList<Course>): RecyclerView.Adapter<PostsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
@@ -25,14 +25,8 @@ class PostsAdapter(val posts: ArrayList<Post>): RecyclerView.Adapter<PostsAdapte
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(post: Post) {
-            itemView.title.text = post.title
-            if (!post.completed)
-                itemView.imageButton.setImageResource(R.drawable.cruz)
-            else
-                itemView.imageButton.setImageResource(R.drawable.chulo)
-
-
+        fun bind(course: Course) {
+            itemView.title.text = course.name
         }
     }
 }
