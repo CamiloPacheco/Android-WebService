@@ -26,7 +26,9 @@ class PostsAdapter(val posts: ArrayList<Course>): RecyclerView.Adapter<PostsAdap
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(course: Course) {
-            itemView.title.text = course.name
+            itemView.title.text = "Class : " +course.name
+            itemView.student.text=" Student : "+ course.students
+            itemView.professor.text=" Professor : "+ course.professor
         }
     }
 }

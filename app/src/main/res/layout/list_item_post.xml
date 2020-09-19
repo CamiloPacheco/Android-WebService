@@ -24,11 +24,20 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <ImageButton
-                android:id="@+id/imageButton"
-                android:layout_width="62dp"
+            <TextView
+                android:id="@+id/professor"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:srcCompat="@android:drawable/checkbox_on_background" />
+                android:text="TextView"
+                android:textColor="#000000"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/student"
+                android:layout_width="match_parent"
+                android:layout_height="33dp"
+                android:text="TextView"
+                android:textColor="#000000" />
 
         </LinearLayout>
 

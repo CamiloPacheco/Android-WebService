@@ -42,7 +42,7 @@ class HomeFragment : Fragment() {
 
         requireView().posts_recycler.adapter = adapter
         requireView().posts_recycler.layoutManager = LinearLayoutManager(requireContext())
-        var token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjE0MiwiaWF0IjoxNjAwNDc3NzQxLCJleHAiOjE2MDA0Nzc4NjF9.556fOVp0xXFofYp7gEIbkCIx2pcmUml2PUIUacmWkaM"
+        var token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjE0MiwiaWF0IjoxNjAwNTE5NzI3LCJleHAiOjE2MDA1MTk4NDd9.RkjJeq4cdrLU1wyk7u1MJ2MgX1hZ1EmH5sHNvSw79m0"
         postViewModel.getCourses("elprofesor",token);
         postViewModel.getCoursesData()
 
