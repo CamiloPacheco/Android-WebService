@@ -3,21 +3,22 @@ package com.cacomas.navigationlogin.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.cacomas.navigationlogin.data.User
+import com.cacomas.navigationlogin.repository.api.LoginApiService
 import com.cacomas.navigationlogin.util.PreferenceProvider
 
 object SignUpRepository {
     private var userList = mutableListOf<User>()
     private val users = MutableLiveData<List<User>>()
-    init {
+    /**init {
         userList.add(User(PreferenceProvider.getUser()!!,PreferenceProvider.getPass()!!))
         users.value = userList
-    }
+    }*/
 
-    fun getUsers() = users as LiveData<List<User>>
+    var userLiveData = MutableLiveData<User>()
 
-    fun addUser(user: User) {
-        userList.add(user)
-        users.value = userList
-        PreferenceProvider.setUser(user.name,user.pass)
-    }
+    private val service = LoginApiService()
+
+    fun signUp(user: User) = service.signUp(user)
+
+    fun getUser() = userLiveData as LiveData<User>
 }
