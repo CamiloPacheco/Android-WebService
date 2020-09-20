@@ -15,20 +15,12 @@ import com.cacomas.navigationlogin.R
 import com.cacomas.navigationlogin.data.User
 import com.cacomas.navigationlogin.viewmodel.SignUpViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
-
-/**
- * A simple [Fragment] subclass.
- * Use the [SignUpFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SignUpFragment : Fragment() {
     // TODO: Rename and change types of parameters
     val signupViewModel : SignUpViewModel by activityViewModels()
     private var userList = mutableListOf<User>()
-    var count : Int = 0
+    var theToken : String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,20 +33,20 @@ class SignUpFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val navController = findNavController()
-        signupViewModel.getUsers().observe(getViewLifecycleOwner(), Observer { users ->
-            run {
-                count  = users.size
-                userList = users as MutableList<User>
-                users.forEach{ user ->
-                    Log.d("VideoViewModel", user.name + "  "+ user.pass)
-                }
-                Log.d("VideoViewModel", "" + users.size)
-            }
-        })
-        view.findViewById<Button>(R.id.buttonSignUp).setOnClickListener {
-            val user = view.findViewById<TextView>(R.id.TextUserName)
-            val pass = view.findViewById<TextView>(R.id.TextPassName)
-            signupViewModel.addUser(User(user.text.toString(), pass.text.toString()))
+
+        view.findViewById<Button>(R.id.crearbtn).setOnClickListener {
+
+            val user = view.findViewById<TextView>(R.id.userTextField).text.toString()
+            val pass = view.findViewById<TextView>(R.id.passwordTextField).text.toString()
+            val email = view.findViewById<TextView>(R.id.emailTextField).text.toString()
+
+            signupViewModel.signUp(email,pass, user).observe(getViewLifecycleOwner(), Observer { user ->
+
+                Log.d("MyOut", "Fragment  signUp " + user + " error " + user.error)
+                theToken = user.token
+
+            })
+
             navController.navigate(R.id.loginFragment)
         }
     }

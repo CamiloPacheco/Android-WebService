@@ -15,20 +15,14 @@ import com.cacomas.navigationlogin.viewmodel.LoginViewModel
 import com.cacomas.navigationlogin.viewmodel.PostViewModel
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
-/**
- * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HomeFragment : Fragment() {
     val postViewModel: PostViewModel by activityViewModels()
     private val adapter = PostsAdapter(ArrayList())
 
 
     val loginViewModel: LoginViewModel by activityViewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,7 +37,7 @@ class HomeFragment : Fragment() {
         requireView().posts_recycler.adapter = adapter
         requireView().posts_recycler.layoutManager = LinearLayoutManager(requireContext())
         var token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjE0MiwiaWF0IjoxNjAwNTE5NzI3LCJleHAiOjE2MDA1MTk4NDd9.RkjJeq4cdrLU1wyk7u1MJ2MgX1hZ1EmH5sHNvSw79m0"
-        postViewModel.getCourses("elprofesor",token);
+        postViewModel.getCourses(loginViewModel.getUsuario(),loginViewModel.gettoken());
         postViewModel.getCoursesData()
 
         postViewModel.postsLiveData.observe(getViewLifecycleOwner(), Observer {
@@ -62,8 +56,10 @@ class HomeFragment : Fragment() {
             loginViewModel.setLogged(false)
         }
         view.findViewById<Button>(R.id.Addbutton).setOnClickListener {
-            postViewModel.addCourses("elprofesor",token);
+            postViewModel.addCourses(loginViewModel.getUsuario(),loginViewModel.gettoken());
             postViewModel.getCoursesData()
         }
+
+
     }
 }
