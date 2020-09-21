@@ -19,16 +19,19 @@ class PreferenceProvider {
         fun getValue(): Boolean? {
             return preference.getBoolean("key",false)
         }
-        fun setUser(user: String, pass:String){
+        fun setUser(user: String){
             preference.edit().putString("user",user).apply()
-            preference.edit().putString("password",pass).apply()
 
         }
-        fun getUser(): String? {
-            return preference.getString("user", " ")
+        fun setToken(token: String){
+            preference.edit().putString("token",token).apply()
         }
-        fun getPass(): String? {
-            return preference.getString("password", " ")
+
+        fun getUser(): String? {
+            return preference.getString("user", "")
+        }
+        fun getToken(): String? {
+            return preference.getString("token", "")
         }
     }
 }

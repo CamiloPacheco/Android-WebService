@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cacomas.navigationlogin.R
@@ -39,8 +40,9 @@ class HomeFragment : Fragment(), PostsAdapter.OnCourseItemClickListner {
 
         requireView().posts_recycler.adapter = adapter
         requireView().posts_recycler.layoutManager = LinearLayoutManager(requireContext())
-        var token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjE0MiwiaWF0IjoxNjAwNTE5NzI3LCJleHAiOjE2MDA1MTk4NDd9.RkjJeq4cdrLU1wyk7u1MJ2MgX1hZ1EmH5sHNvSw79m0"
-        postViewModel.getCourses(loginViewModel.getUsuario(),loginViewModel.gettoken());
+        val user=loginViewModel.getUsuario().value!!
+        val token=loginViewModel.gettoken().value!!
+        postViewModel.getCourses(user,token);
         postViewModel.getCoursesData()
 
         postViewModel.postsLiveData.observe(getViewLifecycleOwner(), Observer {
@@ -59,7 +61,9 @@ class HomeFragment : Fragment(), PostsAdapter.OnCourseItemClickListner {
             loginViewModel.setLogged(false)
         }
         view.findViewById<Button>(R.id.Addbutton).setOnClickListener {
-            postViewModel.addCourses(loginViewModel.getUsuario(),loginViewModel.gettoken());
+            val user=loginViewModel.getUsuario().value!!
+            val token=loginViewModel.gettoken().value!!
+            postViewModel.addCourses(user,token);
             postViewModel.getCoursesData()
         }
 

@@ -27,18 +27,16 @@ class LoginViewModel : ViewModel() {
 
     fun settoken(tokenFragment: String){
         token =  tokenFragment
+        repository.setToken(token)
     }
     fun setuser(userFragment: String){
         user = userFragment
+        repository.setUser(user)
     }
 
-    fun getUsuario(): String{
-        return user
-    }
+    fun getUsuario()= repository.getUser()
 
-    fun gettoken(): String{
-        return token
-    }
+    fun gettoken()= repository.getToken()
 
     //fun getUser() = userLiveData
 }
