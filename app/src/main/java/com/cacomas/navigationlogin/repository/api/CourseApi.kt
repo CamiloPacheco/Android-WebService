@@ -11,7 +11,7 @@ interface CourseApi {
     @POST("{dbId}/courses")
     fun addCourse(@Path("dbId") user: String, @Header("Authorization") header: String): Call<Course>
 
-    @GET("{dbId}/courses/:{courseId}")
+    @GET("{dbId}/courses/{courseId}")
     fun ShowCourseDetails(@Path("dbId") user: String,@Path("courseId") index: String, @Header("Authorization") header: String): Call<CourseDetails>
 
 

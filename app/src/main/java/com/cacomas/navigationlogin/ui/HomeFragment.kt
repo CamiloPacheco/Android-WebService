@@ -1,6 +1,7 @@
 package com.cacomas.navigationlogin.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,22 +10,19 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cacomas.navigationlogin.R
 import com.cacomas.navigationlogin.data.Course
 import com.cacomas.navigationlogin.viewmodel.LoginViewModel
 import com.cacomas.navigationlogin.viewmodel.PostViewModel
-import com.cacomas.navigationlogin.ui.PostsAdapter
 import kotlinx.android.synthetic.main.fragment_home.view.*
+
 
 
 class HomeFragment : Fragment(), PostsAdapter.OnCourseItemClickListner {
     val postViewModel: PostViewModel by activityViewModels()
     private val adapter = PostsAdapter(ArrayList(), this)
-
-
     val loginViewModel: LoginViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -32,7 +30,9 @@ class HomeFragment : Fragment(), PostsAdapter.OnCourseItemClickListner {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_home, container, false)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,12 +43,15 @@ class HomeFragment : Fragment(), PostsAdapter.OnCourseItemClickListner {
         val user=loginViewModel.getUsuario().value!!
         val token=loginViewModel.gettoken().value!!
         postViewModel.getCourses(user,token);
-        postViewModel.getCoursesData()
 
-        postViewModel.postsLiveData.observe(getViewLifecycleOwner(), Observer {
+        postViewModel.getCourseData().observe(viewLifecycleOwner,Observer { courses ->
             adapter.posts.clear()
-            adapter.posts.addAll(it)
+            adapter.posts.addAll(courses)
             adapter.notifyDataSetChanged()
+        })
+        postViewModel.getCourseDetails().observe(viewLifecycleOwner,Observer { courseDetails ->
+            if (courseDetails.isNotEmpty())
+                Toast.makeText(context, courseDetails.get(0).professor.name , Toast.LENGTH_SHORT).show()
         })
 
         val navController = findNavController()
@@ -64,13 +67,12 @@ class HomeFragment : Fragment(), PostsAdapter.OnCourseItemClickListner {
             val user=loginViewModel.getUsuario().value!!
             val token=loginViewModel.gettoken().value!!
             postViewModel.addCourses(user,token);
-            postViewModel.getCoursesData()
         }
-
-
     }
-
     override fun onItemClick(item: Course, position: Int) {
-        Toast.makeText(context, item.name , Toast.LENGTH_SHORT).show()
+        val user=loginViewModel.getUsuario().value!!
+        val token=loginViewModel.gettoken().value!!
+        postViewModel.ShowCourseDetails(user,item.id,token)
+
     }
 }

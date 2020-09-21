@@ -54,12 +54,11 @@ class LoginFragment : Fragment() {
                 loginViewModel.setuser(userName)
 
                 if (user.token != "") {
-                    Toast.makeText(context, "Token22 " + user.token, Toast.LENGTH_LONG).show()
+                    //Toast.makeText(context, "Token22 " + user.token, Toast.LENGTH_LONG).show()
                     loginViewModel.setLogged(true)
                     navController.navigate(R.id.homeFragment)
                 } else {
-                    Toast.makeText(context, "Token22 failure " + user.error, Toast.LENGTH_LONG)
-                        .show()
+                   //Toast.makeText(context, "Token22 failure " + user.error, Toast.LENGTH_LONG).show()
                 }
 
             })

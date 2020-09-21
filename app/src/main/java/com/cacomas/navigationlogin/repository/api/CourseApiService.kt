@@ -13,6 +13,7 @@ class CourseApiService {
     companion object{
 
         val theResponse = MutableLiveData<List<Course>>()
+        val responseCourseDetails = MutableLiveData<List<CourseDetails>>()
         var courses = mutableListOf<Course>()
         var courseDetails=mutableListOf<CourseDetails>()
 
@@ -31,8 +32,8 @@ class CourseApiService {
         }
     }
 
-    fun getCourseData() = courses
-    fun getCourseDetails()= courseDetails
+    fun getCourseData() = theResponse
+    fun getCourseDetails()= responseCourseDetails
 
     fun getCourses(user: String, token: String){
 
@@ -77,7 +78,7 @@ class CourseApiService {
                     if (loginResponse != null) {
                         //Log.d("MyOut", "OK isSuccessful token " )
                         courses.add(response.body()!!)
-
+                        theResponse.postValue(courses)
                     }
                 } else {
                     Log.d("MyOut", "NOK  "+response.code() )
@@ -103,7 +104,10 @@ class CourseApiService {
                     val courseDetailsresponse = response.body()
                     if (courseDetailsresponse!= null) {
                         Log.d("MyOut", "Se obtuvieron los detalles del curso " )
+                        courseDetails.clear()
                         courseDetails.add(response.body()!!)
+                        responseCourseDetails.postValue(courseDetails)
+                        Log.d("MyOut", "funciona" )
                     }
                 } else {
                     Log.d("MyOut", "NOK  "+response.code() )
