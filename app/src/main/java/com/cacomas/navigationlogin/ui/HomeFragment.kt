@@ -6,19 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cacomas.navigationlogin.R
+import com.cacomas.navigationlogin.data.Course
 import com.cacomas.navigationlogin.viewmodel.LoginViewModel
 import com.cacomas.navigationlogin.viewmodel.PostViewModel
+import com.cacomas.navigationlogin.ui.PostsAdapter
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), PostsAdapter.OnCourseItemClickListner {
     val postViewModel: PostViewModel by activityViewModels()
-    private val adapter = PostsAdapter(ArrayList())
+    private val adapter = PostsAdapter(ArrayList(), this)
 
 
     val loginViewModel: LoginViewModel by activityViewModels()
@@ -61,5 +64,9 @@ class HomeFragment : Fragment() {
         }
 
 
+    }
+
+    override fun onItemClick(item: Course, position: Int) {
+        Toast.makeText(context, item.name , Toast.LENGTH_SHORT).show()
     }
 }
