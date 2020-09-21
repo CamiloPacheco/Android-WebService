@@ -49,6 +49,7 @@ class HomeFragment : Fragment(), PostsAdapter.OnCourseItemClickListner {
             adapter.posts.addAll(courses)
             adapter.notifyDataSetChanged()
         })
+
         postViewModel.getCourseDetails().observe(viewLifecycleOwner,Observer { courseDetails ->
             if (courseDetails.isNotEmpty())
                 Toast.makeText(context, courseDetails.get(0).professor.name , Toast.LENGTH_SHORT).show()
