@@ -5,13 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.MutableLiveData
 import com.cacomas.navigationlogin.data.Course
+import com.cacomas.navigationlogin.data.CourseDetails
 import kotlinx.coroutines.launch
 import com.cacomas.navigationlogin.repository.PostRepository
 
 class PostViewModel : ViewModel() {
     private val repository = PostRepository()
-    val posts = mutableListOf<Course>()
     val postsLiveData = MutableLiveData<List<Course>>()
+    val courseDetails=MutableLiveData<List<CourseDetails>>()
 
     init {
         //getPost()
@@ -27,5 +28,12 @@ class PostViewModel : ViewModel() {
     }
     fun addCourses(user: String, token: String)  {
         repository.addCourses(user, token)
+    }
+    fun ShowCourseDetails(user: String,Index: String,token: String){
+        repository.ShowCourseDetails(user,Index,token)
+    }
+    fun getCourseDetails(){
+        val Details=repository.getCourseDetails()
+        courseDetails.postValue(Details)
     }
 }

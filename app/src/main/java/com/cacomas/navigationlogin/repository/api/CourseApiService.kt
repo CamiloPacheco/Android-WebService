@@ -3,6 +3,7 @@ package com.cacomas.navigationlogin.repository.api
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.cacomas.navigationlogin.data.Course
+import com.cacomas.navigationlogin.data.CourseDetails
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.*
@@ -13,6 +14,7 @@ class CourseApiService {
 
         val theResponse = MutableLiveData<List<Course>>()
         var courses = mutableListOf<Course>()
+        var courseDetails=mutableListOf<CourseDetails>()
 
         fun getRestEngine(): CourseApi {
             val interceptor = HttpLoggingInterceptor()
@@ -30,6 +32,7 @@ class CourseApiService {
     }
 
     fun getCourseData() = courses
+    fun getCourseDetails()= courseDetails
 
     fun getCourses(user: String, token: String){
 
@@ -84,6 +87,32 @@ class CourseApiService {
             }
 
             override fun onFailure(call: Call<Course>, t: Throwable) {
+                Log.d("MyOut","Failure "+t.message)
+            }
+
+        })
+    }
+    fun ShowCourseDetails(user: String,Index: String,token: String) {
+
+        Log.d("MyOut", "addCourse with token  <" + token+">")
+        val auth = "Bearer "+token
+        getRestEngine().ShowCourseDetails(user,Index,auth).enqueue(object: Callback<CourseDetails>{
+            override fun onResponse(call: Call<CourseDetails>, response: Response<CourseDetails>) {
+                if (response.isSuccessful) {
+                    Log.d("MyOut", "OK isSuccessful ")
+                    val courseDetailsresponse = response.body()
+                    if (courseDetailsresponse!= null) {
+                        Log.d("MyOut", "Se obtuvieron los detalles del curso " )
+                        courseDetails.add(response.body()!!)
+                    }
+                } else {
+                    Log.d("MyOut", "NOK  "+response.code() )
+                    Log.d("MyOut", "NOK  "+response.toString() )
+                    Log.d("MyOut", "NOK  "+response.errorBody().toString() )
+                }
+            }
+
+            override fun onFailure(call: Call<CourseDetails>, t: Throwable) {
                 Log.d("MyOut","Failure "+t.message)
             }
 

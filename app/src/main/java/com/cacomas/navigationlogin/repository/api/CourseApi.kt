@@ -1,5 +1,6 @@
 package com.cacomas.navigationlogin.repository.api
 import com.cacomas.navigationlogin.data.Course
+import com.cacomas.navigationlogin.data.CourseDetails
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -9,4 +10,9 @@ interface CourseApi {
 
     @POST("{dbId}/courses")
     fun addCourse(@Path("dbId") user: String, @Header("Authorization") header: String): Call<Course>
+
+    @GET("{dbId}/courses/:{courseId}")
+    fun ShowCourseDetails(@Path("dbId") user: String,@Path("courseId") index: String, @Header("Authorization") header: String): Call<CourseDetails>
+
+
 }
