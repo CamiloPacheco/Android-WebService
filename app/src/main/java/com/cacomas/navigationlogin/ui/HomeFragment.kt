@@ -74,6 +74,7 @@ class HomeFragment : Fragment(), PostsAdapter.OnCourseItemClickListner {
             builder.setPositiveButton("OK", null)
             builder.setNegativeButton("Add Student",negativeButtonClick )
             builder.show()
+            postViewModel.getCourses(user,token);
         })
 
         val navController = findNavController()
@@ -82,13 +83,18 @@ class HomeFragment : Fragment(), PostsAdapter.OnCourseItemClickListner {
                 navController.navigate(R.id.loginFragment)}
         })
 
-        view.findViewById<Button>(R.id.buttonLogOut).setOnClickListener {
+        view.findViewById<FloatingActionButton>(R.id.buttonLogOut).setOnClickListener {
             loginViewModel.setLogged(false)
         }
         view.findViewById<FloatingActionButton>(R.id.Addbutton).setOnClickListener {
             val user=loginViewModel.getUsuario().value!!
             val token=loginViewModel.gettoken().value!!
             postViewModel.addCourses(user,token);
+        }
+        view.findViewById<FloatingActionButton>(R.id.resetBtn).setOnClickListener {
+            val user=loginViewModel.getUsuario().value!!
+            val token=loginViewModel.gettoken().value!!
+            postViewModel.deleteCourses(user, token)
         }
     }
     override fun onItemClick(item: Course, position: Int) {

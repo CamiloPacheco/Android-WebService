@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.cacomas.navigationlogin.data.Course
 import com.cacomas.navigationlogin.data.CourseDetails
 import okhttp3.OkHttpClient
+import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
@@ -117,6 +118,27 @@ class CourseApiService {
             }
 
             override fun onFailure(call: Call<CourseDetails>, t: Throwable) {
+                Log.d("MyOut","Failure "+t.message)
+            }
+
+        })
+    }
+
+    fun deleteCourses(db_id:String,token:String) {
+        val auth = "Bearer "+token
+        CourseApiService.getRestEngine().deleteCourses(db_id,auth).enqueue(object:
+            Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.isSuccessful) {
+                    Log.d("MyOut", "OK isSuccessful " + response.body()?.string())
+                } else {
+                    Log.d("MyOut", "NOK  "+response.code() )
+                    // Log.d("MyOut", "NOK isNotSuccessful " + response.errorBody()?.string())
+                }
+
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 Log.d("MyOut","Failure "+t.message)
             }
 
