@@ -56,6 +56,8 @@ class HomeFragment : Fragment(), PostsAdapter.OnCourseItemClickListner {
 
         postViewModel.getCourseDetails().observe(viewLifecycleOwner,Observer { courseDetails ->
             val builder = AlertDialog.Builder(requireActivity())
+            val negativeButtonClick = { dialog: DialogInterface, which: Int ->AddStudent("","","")
+            }
             var Mesage: String =""
             var PMesage: String = "Professor Details: \n   name:  "+ courseDetails.get(0).professor.name+"\n"+
                     "   UserName:  " + courseDetails.get(0).professor.username+"\n"+
@@ -68,7 +70,7 @@ class HomeFragment : Fragment(), PostsAdapter.OnCourseItemClickListner {
             builder.setTitle("Course Details")
             builder.setMessage(PMesage +  Mesage)
             builder.setPositiveButton("OK", null)
-            builder.setNegativeButton("Add Student", null)
+            builder.setNegativeButton("Add Student",negativeButtonClick )
             builder.show()
         })
 
