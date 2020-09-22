@@ -1,11 +1,6 @@
 package com.cacomas.navigationlogin.repository.api
 
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
-import com.cacomas.navigationlogin.data.Course
-import com.cacomas.navigationlogin.data.CourseDetails
-import com.cacomas.navigationlogin.data.StudentCreated
-import com.cacomas.navigationlogin.data.User
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
@@ -16,7 +11,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class StudentApiService {
-
+    private val courseApiService = CourseApiService()
     companion object{
 
         fun getRestEngine(): StudentApi {
@@ -40,6 +35,10 @@ class StudentApiService {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful) {
                     Log.d("MyOut", "OK isSuccessful " + response.body()?.string())
+                    val loginResponse = response.body()
+                    if (loginResponse != null) {
+                        courseApiService.getCourses(db_id, token)
+                    }
                 } else {
                     Log.d("MyOut", "NOK  "+response.code() )
                     // Log.d("MyOut", "NOK isNotSuccessful " + response.errorBody()?.string())

@@ -131,6 +131,10 @@ class CourseApiService {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful) {
                     Log.d("MyOut", "OK isSuccessful " + response.body()?.string())
+                    val loginResponse = response.body()
+                    if (loginResponse != null) {
+                        getCourses(db_id, token)
+                    }
                 } else {
                     Log.d("MyOut", "NOK  "+response.code() )
                     // Log.d("MyOut", "NOK isNotSuccessful " + response.errorBody()?.string())
