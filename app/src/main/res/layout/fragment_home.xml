@@ -20,26 +20,28 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
-    <Button
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/Addbutton"
-        android:layout_width="129dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="68dp"
-        android:text="Añadir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:src="@android:drawable/ic_input_add"
+        app:backgroundTint="#9C27B0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/posts_recycler"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.268" />
 
     <Button
         android:id="@+id/buttonLogOut"
         android:layout_width="129dp"
         android:layout_height="50dp"
-        android:layout_marginTop="8dp"
         android:text="LogOut"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Addbutton" />
+        app:layout_constraintTop_toBottomOf="@+id/Addbutton"
+        app:layout_constraintVertical_bias="0.189" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

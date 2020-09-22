@@ -34,7 +34,8 @@ class StudentApiService {
         }
     }
     fun addStudent(db_id:String, course_id:String,token:String) {
-        getRestEngine().addStudent(db_id,course_id,token).enqueue(object:
+        val auth = "Bearer "+token
+        getRestEngine().addStudent(db_id,course_id,auth).enqueue(object:
             Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful) {

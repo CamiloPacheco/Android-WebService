@@ -19,6 +19,7 @@ import com.cacomas.navigationlogin.data.Course
 import com.cacomas.navigationlogin.viewmodel.LoginViewModel
 import com.cacomas.navigationlogin.viewmodel.PostViewModel
 import com.cacomas.navigationlogin.viewmodel.StudentViewModel
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
 
@@ -28,7 +29,7 @@ class HomeFragment : Fragment(), PostsAdapter.OnCourseItemClickListner {
     private val adapter = PostsAdapter(ArrayList(), this)
     val loginViewModel: LoginViewModel by activityViewModels()
     val studentViewModel: StudentViewModel by activityViewModels()
-
+    var itemID : String = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -46,6 +47,7 @@ class HomeFragment : Fragment(), PostsAdapter.OnCourseItemClickListner {
         requireView().posts_recycler.layoutManager = LinearLayoutManager(requireContext())
         val user=loginViewModel.getUsuario().value!!
         val token=loginViewModel.gettoken().value!!
+
         postViewModel.getCourses(user,token);
 
         postViewModel.getCourseData().observe(viewLifecycleOwner,Observer { courses ->
@@ -56,7 +58,7 @@ class HomeFragment : Fragment(), PostsAdapter.OnCourseItemClickListner {
 
         postViewModel.getCourseDetails().observe(viewLifecycleOwner,Observer { courseDetails ->
             val builder = AlertDialog.Builder(requireActivity())
-            val negativeButtonClick = { dialog: DialogInterface, which: Int ->AddStudent("","","")
+            val negativeButtonClick = { dialog: DialogInterface, which: Int ->AddStudent(user,itemID,token)
             }
             var Mesage: String =""
             var PMesage: String = "Professor Details: \n   name:  "+ courseDetails.get(0).professor.name+"\n"+
@@ -83,7 +85,7 @@ class HomeFragment : Fragment(), PostsAdapter.OnCourseItemClickListner {
         view.findViewById<Button>(R.id.buttonLogOut).setOnClickListener {
             loginViewModel.setLogged(false)
         }
-        view.findViewById<Button>(R.id.Addbutton).setOnClickListener {
+        view.findViewById<FloatingActionButton>(R.id.Addbutton).setOnClickListener {
             val user=loginViewModel.getUsuario().value!!
             val token=loginViewModel.gettoken().value!!
             postViewModel.addCourses(user,token);
@@ -92,6 +94,7 @@ class HomeFragment : Fragment(), PostsAdapter.OnCourseItemClickListner {
     override fun onItemClick(item: Course, position: Int) {
         val user=loginViewModel.getUsuario().value!!
         val token=loginViewModel.gettoken().value!!
+        itemID=item.id
         postViewModel.ShowCourseDetails(user,item.id,token)
 
     }
