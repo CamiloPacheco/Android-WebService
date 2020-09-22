@@ -74,7 +74,6 @@ class HomeFragment : Fragment(), PostsAdapter.OnCourseItemClickListner {
             builder.setPositiveButton("OK", null)
             builder.setNegativeButton("Add Student",negativeButtonClick )
             builder.show()
-            postViewModel.getCourses(user,token);
         })
 
         val navController = findNavController()
@@ -104,5 +103,5 @@ class HomeFragment : Fragment(), PostsAdapter.OnCourseItemClickListner {
         postViewModel.ShowCourseDetails(user,item.id,token)
 
     }
-    fun AddStudent(db_id:String, course_id:String,token:String) = studentViewModel.addStudent(db_id,course_id,token)
+    fun AddStudent(db_id:String, course_id:String,token:String) =studentViewModel.addStudent(db_id,course_id,token)
 }

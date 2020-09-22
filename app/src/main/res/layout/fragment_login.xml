@@ -10,7 +10,7 @@
         android:id="@+id/textView"
         android:layout_width="189dp"
         android:layout_height="33dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="40dp"
         android:text="Digite su Usuario"
         android:textAlignment="gravity"
         android:textColor="#040404"
@@ -26,7 +26,7 @@
         android:id="@+id/textView3"
         android:layout_width="189dp"
         android:layout_height="33dp"
-        android:layout_marginTop="396dp"
+        android:layout_marginTop="300dp"
         android:text="Digite su Clave"
         android:textAlignment="gravity"
         android:textColor="#040404"
@@ -35,6 +35,7 @@
 
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.45"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,7 +43,7 @@
         android:id="@+id/editTextTextPersonName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Usuario"
         android:inputType="textPersonName"
@@ -70,16 +71,20 @@
         android:layout_height="46dp"
         android:layout_marginTop="8dp"
         android:text="Sign Up"
+        android:background="#6200EE"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonLogin" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonLogin"
+        app:layout_constraintVertical_bias="0.092" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="189dp"
         android:layout_height="33dp"
-        android:layout_marginTop="240dp"
+        android:layout_marginTop="172dp"
         android:text="Digite su Correo"
         android:textColor="#040404"
         android:textSize="24sp"
@@ -93,7 +98,7 @@
         android:id="@+id/editTextTextPersonName3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Correo"
         android:inputType="textPersonName"
@@ -107,13 +112,14 @@
         android:layout_width="120dp"
         android:layout_height="46dp"
         android:layout_marginTop="32dp"
-
+        android:background="#6200EE"
+        android:textColor="@android:color/white"
         android:text="Login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2"
-        app:layout_constraintVertical_bias="0.05" />
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
