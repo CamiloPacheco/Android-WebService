@@ -1,13 +1,15 @@
 package com.cacomas.navigationlogin.ui
 
+import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
+import android.os.Message
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -16,6 +18,7 @@ import com.cacomas.navigationlogin.R
 import com.cacomas.navigationlogin.data.Course
 import com.cacomas.navigationlogin.viewmodel.LoginViewModel
 import com.cacomas.navigationlogin.viewmodel.PostViewModel
+import com.cacomas.navigationlogin.viewmodel.StudentViewModel
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
 
@@ -24,6 +27,7 @@ class HomeFragment : Fragment(), PostsAdapter.OnCourseItemClickListner {
     val postViewModel: PostViewModel by activityViewModels()
     private val adapter = PostsAdapter(ArrayList(), this)
     val loginViewModel: LoginViewModel by activityViewModels()
+    val studentViewModel: StudentViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,8 +55,21 @@ class HomeFragment : Fragment(), PostsAdapter.OnCourseItemClickListner {
         })
 
         postViewModel.getCourseDetails().observe(viewLifecycleOwner,Observer { courseDetails ->
-            if (courseDetails.isNotEmpty())
-                Toast.makeText(context, courseDetails.get(0).professor.name , Toast.LENGTH_SHORT).show()
+            val builder = AlertDialog.Builder(requireActivity())
+            var Mesage: String =""
+            var PMesage: String = "Professor Details: \n   name:  "+ courseDetails.get(0).professor.name+"\n"+
+                    "   UserName:  " + courseDetails.get(0).professor.username+"\n"+
+                    "   email:  " + courseDetails.get(0).professor.email+"\n\n"
+            for(i in 0..courseDetails.get(0).students.size-1) {
+                 Mesage =Mesage+" Student Details \n  name:  " + courseDetails.get(0).students[i].name+"\n"+
+                        "   UserName:  " + courseDetails.get(0).students[i].username+"\n"+
+                        "   email:  " + courseDetails.get(0).students[i].email+"\n\n"
+            }
+            builder.setTitle("Course Details")
+            builder.setMessage(PMesage +  Mesage)
+            builder.setPositiveButton("OK", null)
+            builder.setNegativeButton("Add Student", null)
+            builder.show()
         })
 
         val navController = findNavController()
@@ -76,4 +93,5 @@ class HomeFragment : Fragment(), PostsAdapter.OnCourseItemClickListner {
         postViewModel.ShowCourseDetails(user,item.id,token)
 
     }
+    fun AddStudent(db_id:String, course_id:String,token:String) = studentViewModel.addStudent(db_id,course_id,token)
 }
