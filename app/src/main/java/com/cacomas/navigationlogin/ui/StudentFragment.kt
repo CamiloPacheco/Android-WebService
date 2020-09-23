@@ -68,8 +68,26 @@ class StudentFragment : Fragment(),StudentListAdapter.OnStudentItemClickListner 
             view.findViewById<TextView>(R.id.ProfessorEmailTxt).setText("Email:  "+courseDetails.get(0).professor.email)
         })
 
-        postViewModel.getCourseid().observe(viewLifecycleOwner,Observer { id ->
+        postViewModel.getCourseid().observe(viewLifecycleOwner,Observer { id->
            CourseId=id
+        })
+        studentViewModel.getStudent().observe(viewLifecycleOwner,Observer { student->
+            Log.d("MyOut",  student.country)
+            val builder = AlertDialog.Builder(requireActivity())
+
+            var Mesage: String =" Course ID:  "+ student.course_id + "\n" +
+                    " Name  :  "+ student.name + "\n" +
+                    " UserName:  "+ student.username + "\n" +
+                    " Phone:  "+ student.phone + "\n" +
+                    " Email:  "+ student.email + "\n" +
+                    " City:  "+ student.city + "\n" +
+                    " Country:  "+ student.country + "\n" +
+                    " Birthday:  "+ student.birthday + "\n"
+
+            builder.setTitle("Student Details")
+            builder.setMessage(Mesage)
+            builder.setPositiveButton("OK", null)
+            builder.show()
         })
         view.findViewById<FloatingActionButton>(R.id.AddStudent).setOnClickListener {
             val user=loginViewModel.getUsuario().value!!
@@ -80,7 +98,9 @@ class StudentFragment : Fragment(),StudentListAdapter.OnStudentItemClickListner 
     }
 
     override fun onItemClick(item: Student, position: Int) {
-        TODO("Not yet implemented")
+        val user=loginViewModel.getUsuario().value!!
+        val token=loginViewModel.gettoken().value!!
+        studentViewModel.showStudent(user,item.id,token)
     }
 
 
