@@ -17,6 +17,7 @@ class CourseApiService {
         val responseCourseDetails = MutableLiveData<List<CourseDetails>>()
         var courses = mutableListOf<Course>()
         var courseDetails=mutableListOf<CourseDetails>()
+        var courseId =  MutableLiveData<String>()
 
         fun getRestEngine(): CourseApi {
             val interceptor = HttpLoggingInterceptor()
@@ -35,6 +36,7 @@ class CourseApiService {
 
     fun getCourseData() = theResponse
     fun getCourseDetails()= responseCourseDetails
+    fun getCourseId()= courseId
 
     fun getCourses(user: String, token: String){
 
@@ -105,6 +107,7 @@ class CourseApiService {
                     val courseDetailsresponse = response.body()
                     if (courseDetailsresponse!= null) {
                         Log.d("MyOut", "Se obtuvieron los detalles del curso " )
+                        courseId.postValue(Index)
                         courseDetails.clear()
                         courseDetails.add(response.body()!!)
                         responseCourseDetails.postValue(courseDetails)

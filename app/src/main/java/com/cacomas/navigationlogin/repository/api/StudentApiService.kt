@@ -37,7 +37,7 @@ class StudentApiService {
                     Log.d("MyOut", "OK isSuccessful " + response.body()?.string())
                     val loginResponse = response.body()
                     if (loginResponse != null) {
-                        courseApiService.getCourses(db_id, token)
+                        courseApiService.ShowCourseDetails(db_id,course_id,token)
                     }
                 } else {
                     Log.d("MyOut", "NOK  "+response.code() )

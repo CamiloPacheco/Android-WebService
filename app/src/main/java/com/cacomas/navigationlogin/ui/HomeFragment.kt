@@ -28,7 +28,6 @@ class HomeFragment : Fragment(), PostsAdapter.OnCourseItemClickListner {
     val postViewModel: PostViewModel by activityViewModels()
     private val adapter = PostsAdapter(ArrayList(), this)
     val loginViewModel: LoginViewModel by activityViewModels()
-    val studentViewModel: StudentViewModel by activityViewModels()
     var itemID : String = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,25 +55,6 @@ class HomeFragment : Fragment(), PostsAdapter.OnCourseItemClickListner {
             adapter.notifyDataSetChanged()
         })
 
-        //postViewModel.getCourseDetails().observe(viewLifecycleOwner,Observer { courseDetails ->
-            //val builder = AlertDialog.Builder(requireActivity())
-           // val negativeButtonClick = { dialog: DialogInterface, which: Int ->AddStudent(user,itemID,token)
-            //}
-            //var Mesage: String =""
-            //var PMesage: String = "Professor Details: \n   name:  "+ courseDetails.get(0).professor.name+"\n"+
-                  //  "   UserName:  " + courseDetails.get(0).professor.username+"\n"+
-                  //  "   email:  " + courseDetails.get(0).professor.email+"\n\n"
-           // for(i in 0..courseDetails.get(0).students.size-1) {
-                //Mesage =Mesage+" Student Details \n  name:  " + courseDetails.get(0).students[i].name+"\n"+
-                        //"   UserName:  " + courseDetails.get(0).students[i].username+"\n"+
-                       //"   email:  " + courseDetails.get(0).students[i].email+"\n\n"
-            //}
-            //builder.setTitle("Course Details")
-            //builder.setMessage(PMesage +  Mesage)
-            //builder.setPositiveButton("OK", null)
-            //builder.setNegativeButton("Add Student",negativeButtonClick )
-            //builder.show()
-       // })
 
         val navController = findNavController()
         loginViewModel.getLogged().observe(viewLifecycleOwner, Observer { logged ->
@@ -105,5 +85,5 @@ class HomeFragment : Fragment(), PostsAdapter.OnCourseItemClickListner {
         navController.navigate(R.id.studentFragment)
 
     }
-    fun AddStudent(db_id:String, course_id:String,token:String) =studentViewModel.addStudent(db_id,course_id,token)
+
 }

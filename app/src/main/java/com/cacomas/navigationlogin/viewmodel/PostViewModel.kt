@@ -27,6 +27,7 @@ class PostViewModel : ViewModel() {
     }
 
     fun getCourseDetails() = repository.getCourseDetails()
+    fun getCourseid()=repository.getCourseId()
 
     fun deleteCourses(user: String, token: String) = repository.deleteCourses(user, token)
 

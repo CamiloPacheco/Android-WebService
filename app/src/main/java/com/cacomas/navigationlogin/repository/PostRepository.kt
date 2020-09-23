@@ -11,5 +11,6 @@ class PostRepository {
     fun ShowCourseDetails(user: String,Index: String,token: String)=service.ShowCourseDetails(user,Index,token)
     fun getCourseDetails()=service.getCourseDetails()
     fun deleteCourses(user: String, token: String) = service.deleteCourses(user, token)
+    fun getCourseId()=service.getCourseId()
     
 }
