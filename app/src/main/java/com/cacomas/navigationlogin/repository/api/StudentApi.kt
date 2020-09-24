@@ -14,4 +14,7 @@ interface StudentApi {
 
     @GET("{dbId}/students/{studentId}")
     fun showStudent(@Path("dbId") user: String,@Path("studentId") studentID: String, @Header("Authorization") header: String): Call<StudentDetails>
+
+    @GET("{dbId}/professors/{professorId}")
+    fun showProfesor(@Path("dbId") user: String,@Path("professorId") professorID: String, @Header("Authorization") header: String): Call<StudentDetails>
 }

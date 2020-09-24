@@ -7,4 +7,5 @@ class StudentRepository {
     fun addCourse(db_id:String, course_id:String,token:String) =studentService.addStudent(db_id,course_id,token)
     fun showStudent(db_id:String, student_id:String,token:String)=studentService.showStudent(db_id,student_id,token)
     fun getStudent() =studentService.getStudent()
+    fun getProfessor(db_id:String, professor_id:String,token:String)=studentService.showProfessor(db_id,professor_id,token)
 }

@@ -82,4 +82,29 @@ class StudentApiService {
 
         })
     }
+
+    fun showProfessor(db_id:String, professor_id:String,token:String) {
+        val auth = "Bearer "+token
+        getRestEngine().showProfesor(db_id,professor_id,auth).enqueue(object:
+            Callback<StudentDetails> {
+            override fun onResponse(call: Call<StudentDetails>, response: Response<StudentDetails>) {
+                if (response.isSuccessful) {
+                    Log.d("MyOut", "student details add" )
+                    val loginResponse = response.body()
+                    if (loginResponse != null) {
+                        studentDetails.postValue(loginResponse)
+                    }
+                } else {
+                    Log.d("MyOut", "NOK  "+response.code() )
+                    // Log.d("MyOut", "NOK isNotSuccessful " + response.errorBody()?.string())
+                }
+
+            }
+
+            override fun onFailure(call: Call<StudentDetails>, t: Throwable) {
+                Log.d("MyOut","Failure "+t.message)
+            }
+
+        })
+    }
 }

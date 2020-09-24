@@ -8,19 +8,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cacomas.navigationlogin.R
-import com.cacomas.navigationlogin.data.Course
 import com.cacomas.navigationlogin.data.Student
 import com.cacomas.navigationlogin.viewmodel.LoginViewModel
 import com.cacomas.navigationlogin.viewmodel.PostViewModel
 import com.cacomas.navigationlogin.viewmodel.StudentViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.android.synthetic.main.fragment_student.view.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -38,6 +35,7 @@ class StudentFragment : Fragment(),StudentListAdapter.OnStudentItemClickListner 
     val loginViewModel: LoginViewModel by activityViewModels()
     val studentViewModel: StudentViewModel by activityViewModels()
     var CourseId = ""
+    var professorId= ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -66,6 +64,7 @@ class StudentFragment : Fragment(),StudentListAdapter.OnStudentItemClickListner 
             view.findViewById<TextView>(R.id.CourseNameTxt).setText("Course:  "+courseDetails.get(0).name)
             view.findViewById<TextView>(R.id.ProfessorNameTxt).setText("Name:  " + courseDetails.get(0).professor.name)
             view.findViewById<TextView>(R.id.ProfessorEmailTxt).setText("Email:  "+courseDetails.get(0).professor.email)
+            professorId=courseDetails.get(0).professor.id
         })
 
         postViewModel.getCourseid().observe(viewLifecycleOwner,Observer { id->
@@ -84,7 +83,7 @@ class StudentFragment : Fragment(),StudentListAdapter.OnStudentItemClickListner 
                     " Country:  "+ student.country + "\n" +
                     " Birthday:  "+ student.birthday + "\n"
 
-            builder.setTitle("Student Details")
+            builder.setTitle("Details")
             builder.setMessage(Mesage)
             builder.setPositiveButton("OK", null)
             builder.show()
@@ -94,6 +93,15 @@ class StudentFragment : Fragment(),StudentListAdapter.OnStudentItemClickListner 
             val token=loginViewModel.gettoken().value!!
             studentViewModel.addStudent(user,CourseId,token)
         }
+        val tv_click_me = view.findViewById(R.id.ProfessorNameTxt) as TextView
+        // set on-click listener
+        tv_click_me.setOnClickListener {
+            // your code to run when the user clicks on the TextView
+            val user=loginViewModel.getUsuario().value!!
+            val token=loginViewModel.gettoken().value!!
+            studentViewModel.showProfessor(user,professorId,token)
+        }
+
 
     }
 
